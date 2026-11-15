@@ -20,6 +20,7 @@ test('no warnings or report overhead before the checkpoint', async () => {
     const request = event();
     await hooks.get('context')(request);
     assert.equal(request.system.length, 0, `step ${step}`);
+    assert.equal(request.messages.length, 0, 'no request-tail overhead before boundary');
     assert.deepEqual(Object.keys(request.tools), ['shell', 'read']);
   }
 });

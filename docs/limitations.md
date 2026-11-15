@@ -4,7 +4,7 @@
 
 - Prompt ownership rules, exact file allowlists and conditional integration authorization are not OS isolation. Static shell patterns deny selected forms, not every equivalent command. Do not grant this setup access to secrets or destructive production operations on the assumption it is sandboxed.
 - Custom Markdown bodies replace the provider base prompt; project instructions and plugins still contribute context. Review the complete resolved configuration.
-- The plugin counts worker primary context preparations, not tool calls, time or semantic progress. Native steps and context-hook counts are related but not identical. Failed preparations can count; retries that reuse a prepared request may not.
+- The plugin counts worker primary context preparations, not tool calls, time or semantic progress. Native steps is intentionally unset because it injects a full-summary instruction. Failed preparations can count; retries that reuse a prepared request may not.
 - The checkpoint boundary removes future tool definitions; it does not kill running processes, cancel background jobs or guarantee an honest final report. A native step limit can stop a session before the plugin obtains a final reporting opportunity.
 - Persistence relies on ctx.storage supplied by the host. Without storage, counts are in-memory only. A new prompt resets only the addressed session's round. Architect and techlead have no small strict step quotas.
 - Model IDs are examples. No inference, project bootstrap, DAG integration or human product evaluation is proven by static/unit tests.

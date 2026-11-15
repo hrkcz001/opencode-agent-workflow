@@ -20,6 +20,7 @@ Copy this exact allowlist into that configuration root:
 - workflow/bootstrap.md
 - workflow/runtime.md
 - tools/workflow.mjs
+- tools/worktree.mjs
 - extensions/worker-alarm/package.json
 - extensions/worker-alarm/index.mjs
 
@@ -63,6 +64,6 @@ After completing your local configuration edits:
     opencode api GET /api/plugin
     opencode models
 
-Do not share raw debug config output publicly without review. Confirm architect is default; only architect, techlead and worker are custom workflow roles; architect can spawn only techlead, techlead only worker, worker none; worker has steps 70 per review round, with no total ticket ceiling. Compare the loaded prompt bodies with the installed files. Verify local.worker-alarm is active via API. Plugin lists can briefly be empty during reconciliation after reload, so do not interpret a single immediate empty listing as failure.
+Do not share raw debug config output publicly without review. Confirm architect is default; only architect, techlead and worker are custom workflow roles; architect can spawn only techlead, techlead only worker, worker none; worker has no native steps field, and the checkpoint plugin yields every 70 request preparations without a total ticket ceiling. Compare the loaded prompt bodies with the installed files. Verify local.worker-alarm is active via API. Plugin lists can briefly be empty during reconciliation after reload, so do not interpret a single immediate empty listing as failure.
 
 Then enter a fresh project session and request a concrete outcome. Architect must ask before bootstrap. See the [pipeline](pipeline.md) for the consent and acceptance lifecycle. Configuration inspection does not demonstrate an end-to-end model run.

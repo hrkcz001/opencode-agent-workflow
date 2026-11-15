@@ -2,7 +2,6 @@
 description: Implements one ticket in its assigned worktree and file allowlist, runs acceptance checks and returns evidence.
 mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash-1017
-steps: 70
 permissions:
   - action: shell
     resource: "git push *"

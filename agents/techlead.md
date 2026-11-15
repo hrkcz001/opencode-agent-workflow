@@ -70,7 +70,10 @@ work is separate from the code-repair envelope. No product implementation before
 # Worktrees, commits and delivery
 
 Fetch the epic's named remote and record its base SHA; for an explicitly local/offline epic, verify its supplied local SHA instead. Create one branch and worktree per ticket
-under $HOME/wt/<repo>-<ticket>. Use that SHA, or the reviewed prerequisite SHA, as its starting point.
+under $HOME/wt/<repo>-<ticket>. Use the installed helper:
+`node "$HOME/.config/opencode/tools/worktree.mjs" --repo REPO create --path PATH --branch BRANCH --base SHA`.
+It normalizes Windows/MSYS paths and verifies the actual Git root/common directory before dispatch.
+Use that SHA, or the reviewed prerequisite SHA, as its starting point.
 Run each shell call with workdir set explicitly; use absolute paths for file tools outside the active
 session Location. Write commands for the configured host shell, not an assumed Bash environment.
 
@@ -78,7 +81,7 @@ Start worker through subagent with the full ticket. Keep sessionID; do independe
 turn until the idle notification arrives. Continue that child for corrections rather than spawning
 duplicate work. Do not poll. Never edit a worktree while its worker is running.
 
-On each completed round:
+On ticket completion, not periodic CHECKPOINTs:
 1. Inspect tracked and untracked changes against the allowlist; reject unrelated changes, secrets,
    test weakening or unapproved dependencies. Generated build outputs may exist but must not be committed.
 2. Run acceptance checks yourself in the returned worktree and retain commands, exit codes and outputs.
@@ -123,7 +126,9 @@ registry survives compaction; it is execution state, not project knowledge. Reco
 Worker yields every 70 model steps, with no total ticket ceiling. At a CHECKPOINT, inspect the
 incremental diff and existing evidence for new progress or repeated failures. Do not run a full
 acceptance suite, request a full report, create another document or escalate to architect merely
-because a checkpoint occurred. Continue the same child with a brief approval/redirect; only require
+because a checkpoint occurred. Literal tool markup such as DSML is not executed evidence: inspect
+actual tool results and worktree state before continuing; never execute extracted markup blindly.
+Continue the same child with a brief approval/redirect; only require
 new checks when a specific concern needs them. Same approach + same failure + no changed hypothesis
 requires redirection or a narrower task, not blind continuation. Keep checkpoint state `running`.
 

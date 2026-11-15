@@ -1,7 +1,14 @@
 # Local workflow runtime
 
-Dependency-free Node 20+ helper. No daemon, model calls, package install, automatic dispatch or Git
-mutation. All commands return JSON. Use an absolute script path and explicit repository:
+Create ticket worktrees through the installed path-checking helper before registering a spec:
+
+    node /absolute/config/tools/worktree.mjs --repo /absolute/project create --path /absolute/worktree --branch ticket-branch --base BASE_SHA
+
+On Windows it converts MSYS drive paths to native paths and verifies the actual Git root and common
+directory. Existing paths are refused; verification failures preserve the created tree for inspection.
+
+The registry helper below requires Node 20+ with no dependencies. It has no daemon, model calls,
+package install, automatic dispatch or Git mutation; the separate worktree helper above creates branches/worktrees. All commands return JSON. Use an absolute script path and explicit repository:
 
     node /absolute/config/tools/workflow.mjs --repo /absolute/project help
 
@@ -62,7 +69,8 @@ Every 70 worker model steps, pause for a lightweight techlead review. Keep the t
 is not a lifecycle transition and needs no ledger entry, new document, commit, full report or extra
 acceptance run. Worker gives at most three bullets, techlead inspects incremental progress and sends
 one short continue/redirect message to the same child. Repeat as needed without a total step ceiling.
-Native `steps: 70` and the checkpoint plugin enforce the round boundary, not total task lifetime.
+The checkpoint plugin is the sole round boundary. Leave native worker `steps` unset: its mandatory
+full-summary instruction conflicts with the lightweight checkpoint protocol.
 
 ## Evidence validity and recovery
 

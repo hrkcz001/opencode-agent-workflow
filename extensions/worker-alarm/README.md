@@ -3,9 +3,11 @@
 Dependency-free OpenCode V2 Promise plugin, retaining the `local.worker-alarm` ID for compatibility.
 
 Every 70 worker primary request preparations, tools are removed for that round so the worker yields
-to techlead. Native `steps: 70` is an independent boundary and may be reached before the plugin's
-message; worker.md therefore defines the same concise checkpoint protocol. There is NO total ticket
-step ceiling. Techlead can continue the same child through any number of reviewed rounds.
+to techlead. Do not set native `steps` on worker: OpenCode injects a mandatory full summary at that
+boundary, conflicting with concise review. The plugin is the sole round boundary. There is NO total
+ticket step ceiling. Techlead can continue the same child through any number of reviewed rounds.
+A request-local control message after tool results clarifies that unavailable tools must not be
+printed as XML/DSML; it is not persisted as user input.
 
 A checkpoint is CHECKPOINT plus at most three short bullets: progress, repeated failure, next action.
 Reuse existing evidence links. No full report, new file, special commit or extra acceptance run just

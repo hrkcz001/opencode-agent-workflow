@@ -18,6 +18,9 @@ export default {
       if (step >= 70) {
         event.tools = {};
         event.system.push({ text: `WORKER CHECKPOINT: primary request ${step}/70. Tools are disabled. Yield to techlead for progress review. Return only CHECKPOINT plus at most three short bullets: progress since last review, any repeated failure, next action. Link existing evidence only; do not run extra checks or write a full report for this boundary. Preserve all required changes. This is a review boundary, not a total task limit; techlead may continue this session after inspecting progress. Do not claim unrun checks passed.` });
+        // Request-local reminder after tool results; never persisted as user input.
+        // Some providers emit literal tool markup when tools disappear mid-tool trajectory.
+        event.messages.push({ role: 'user', content: [{ type: 'text', text: 'Workflow control: this round is paused and no tools are available. Do not attempt or print tool calls, including XML/DSML. Reply CHECKPOINT and at most three short bullets: progress, repeated failure, next action. Use English. This is not ticket completion; do not produce a full report.' }] });
         return;
       }
 
