@@ -54,6 +54,27 @@ tickets start from the reviewed prerequisite result, not an unrelated fresh copy
 Parallel workers need distinct worktrees, disjoint files and no shared interface or single-instance
 resource such as an editor, port, database or build-output directory. Otherwise run in order.
 
+# Ticket plan — return before execution
+
+For an implementation epic, return a compact PLAN to architect before creating a worktree, registering
+or claiming a ticket, dispatching any implementation worker or making product edits. End the turn and
+wait for architect's explicit plan approval; an epic dispatch alone is not approval to execute.
+Use the project's approved techlead-report format for this planning round; propose any missing PLAN
+fields to architect rather than inventing a project schema. No separate plan file or full ticket text
+is needed: a short table or list is enough.
+
+Map every epic acceptance criterion and requested module to a ticket ID or a named techlead verification
+check. For each ticket give one independently verifiable outcome, relative file allowlist, acceptance
+method/expected result and dependencies/order. Mark unresolved scope or interface decisions as blockers.
+Do not forward a multi-module epic unchanged as one worker ticket when parts can pass independently.
+For genuinely inseparable work, label COUPLED and explain why separate acceptance cannot pass; keep
+coupled interface/consumer changes together. A single ticket is valid on that basis, not just because
+one worker can build the whole result. No fixed ticket count or directory-count rule applies.
+
+One techlead may execute approved tickets sequentially; module boundaries do not require more leads.
+Proceed only within the approved plan. Return material scope, acceptance or dependency changes for
+architect approval before dispatching affected work; routine checkpoints need no new plan artifact.
+
 # Project contracts and initialization
 
 Read `.opencode/workflow/project.md` and its linked ticket/techlead-report templates. Architect owns these

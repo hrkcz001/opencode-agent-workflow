@@ -3,6 +3,7 @@
 ## Boundaries
 
 - Prompt ownership rules, exact file allowlists and conditional integration authorization are not OS isolation. Static shell patterns deny selected forms, not every equivalent command. Do not grant this setup access to secrets or destructive production operations on the assumption it is sandboxed.
+- Ticket planning and Architect plan approval are prompt-enforced, not hard dispatch gates. The runtime registry validates execution metadata and evidence, not semantic decomposition; registering a whole-epic ticket still succeeds if its spec is structurally valid. Static prompt tests cannot prove model compliance.
 - Custom Markdown bodies replace the provider base prompt; project instructions and plugins still contribute context. Review the complete resolved configuration.
 - The plugin counts worker primary context preparations, not tool calls, time or semantic progress. Native steps is intentionally unset because it injects a full-summary instruction. Failed preparations can count; retries that reuse a prepared request may not.
 - The checkpoint boundary removes future tool definitions; it does not kill running processes, cancel background jobs or guarantee an honest final report. A native step limit can stop a session before the plugin obtains a final reporting opportunity.

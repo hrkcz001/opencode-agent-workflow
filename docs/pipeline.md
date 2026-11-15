@@ -26,7 +26,11 @@ Architect owns schema changes. Record revision updates. Adapt the seed to the pr
 
 ## Ordinary work
 
-Architect epic -> techlead baseline and DAG -> worker implementation -> techlead review and independent verification -> explicit staging and commits -> authorized integration/publication -> architect verdict and memory maintenance.
+Architect implementation epic -> techlead baseline and compact ticket plan -> architect plan approval -> same techlead creates worktrees/registers tickets -> worker implementation -> techlead review and independent verification -> explicit staging and commits -> authorized integration/publication -> architect verdict and memory maintenance.
+
+The first techlead round returns before implementation dispatch or product edits. Its PLAN maps every epic acceptance criterion and requested module to a scoped worker ticket or named techlead check. Each ticket names one independently verifiable outcome, relative allowlist, acceptance method/expected result and dependency order. Architect returns whole-epic forwarding when independent outcomes exist; a single ticket needs a concrete COUPLED rationale, not merely the ability of one worker to build everything. One lead may execute sequential tickets; no fixed ticket or directory count applies. Coupled interface/consumer changes that cannot pass separately stay together.
+
+Keep PLAN as a short table/list in the approved techlead-report format, not a new file or checkpoint ritual. Material scope/acceptance/dependency changes return for approval before affected dispatch. Existing project templates need an architect-approved targeted revision if PLAN is missing; do not silently rewrite their schemas.
 
 Fetch the named base remote and record its SHA, or verify the explicit local SHA for offline work. Dependent tickets branch from reviewed prerequisite results, not unrelated remote HEAD. Parallel tickets need separate worktrees, disjoint files/interfaces and no shared single-instance editor, port, database or build-output resource. Otherwise serialize.
 

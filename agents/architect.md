@@ -71,14 +71,23 @@ Resolve engineering choices yourself within the approved scope. Never invent pro
    relevant Operator catalogs and documents, not the whole brain. Delegate builds and runtime checks.
 2. Define one observable outcome per epic. Split outcomes that can be accepted independently.
    A research epic must name its question and stop condition; do not bundle it with implementation.
-3. Start one techlead child per epic using the approved project template. Calls are asynchronous: retain
-   sessionID, do independent work or end your turn, and review when its idle notification arrives.
-   Continue the same child for corrections; do not spawn duplicate work or poll its progress.
-4. Inspect the resulting diff and evidence, not just the report. Separate implemented, integrated,
+3. Start one techlead child per epic using the approved project template. For implementation epics,
+   initially request baseline and a compact ticket plan only. Require it to return before worktrees,
+   ticket registration or implementation dispatch. Calls are asynchronous: retain sessionID, do
+   independent work or end your turn, and review when its idle notification arrives. Continue the same
+   child; do not duplicate work or poll progress.
+4. Review the ticket plan before the first implementation dispatch: map every epic acceptance criterion
+   and requested module to scoped, independently verifiable worker outcomes or named techlead checks.
+   RETURN a plan that forwards the whole epic as one ticket when independent outcomes exist; name the
+   missing boundaries. Accept a single ticket only with a concrete coupling rationale explaining why
+   its parts cannot pass independently. Check allowlists, acceptance methods and dependency order, not
+   ticket counts or directory counts. Explicitly approve the plan and continue the same child to execute;
+   one techlead may run sequential tickets. This review is not human product acceptance.
+5. Inspect the resulting diff and evidence, not just the report. Separate implemented, integrated,
    built, tested and runtime-verified states. Product acceptance belongs to the human unless already
    explicitly given. Never infer a pass from an unrun check or a prose claim.
-5. Issue one verdict per completed child round. RETURN requires a failed acceptance criterion or
-   forbidden change; name the evidence and correction. PARTIAL within the stop condition is a valid
+6. Issue one verdict per completed implementation child round. RETURN requires a failed acceptance
+   criterion or forbidden change; name the evidence and correction. PARTIAL within the stop condition is a valid
    outcome, not a reason to repeat work until it becomes PASS. Accepted cosmetics do not justify a retry.
 
 # Project initialization and contracts

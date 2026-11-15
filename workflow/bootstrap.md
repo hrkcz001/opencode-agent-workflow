@@ -60,10 +60,13 @@ Epic:
 - BASE: named remote ref, or explicit local SHA for an offline/local project.
 - DELIVERY: keep local, push named branch, or integrate and push named remote/target.
 - STOP CONDITION: when to report rather than continue, with retry policy if relevant.
+- PLAN REVIEW: implementation begins with a plan-only return; Architect must approve the ticket plan
+  before worktrees, registration or implementation dispatch.
 - MEMORY: decisions/documents to update, or none.
 
 Ticket:
 - TICKET, WORKDIR and BASE: id, absolute assigned worktree, starting ref and exact SHA.
+- PLAN: approved plan entry and the epic acceptance criterion this ticket closes.
 - GOAL and FILES TOUCHED: one outcome and exact relative tracked-path allowlist.
 - SIGNATURES: existing definitions with file:line; requested new definitions marked NEW.
 - MUST HOLD and FORBIDDEN: inherited epic constraints plus ticket-specific restrictions.
@@ -78,6 +81,10 @@ Worker report:
 - ACCEPTANCE per criterion (PASS/FAIL/NOT RUN); NOT DONE; SCOPE CONCERNS; EVIDENCE paths/excerpts.
 
 Techlead report:
+- PLAN (initial implementation round): compact acceptance/module-to-ticket or named techlead-check map;
+  each ticket has one independently verifiable outcome, relative file allowlist, acceptance method and
+  expected result, dependencies/order. Explain genuinely inseparable work as COUPLED. Return and wait
+  for Architect approval before execution; no separate plan file or full completion report is needed.
 - STATUS; WORK with all workdirs/base/head SHAs and uncommitted remainder; DIFF and scope findings.
 - BUILD, TESTS, RUNTIME; PRODUCT ACCEPTANCE from the human or pending/not required.
 - ACCEPTANCE per epic criterion; DIRECT EDITS with paths, reasons, line counts and rerun checks.
@@ -120,8 +127,11 @@ Resolve project paths against the assigned checkout/worktree. For newly created 
 not committed into a ticket's base yet, techlead passes their full approved text inline or an accessible
 absolute path; never pretend they exist in the new worktree.
 
-The normal lifecycle is Architect epic -> techlead baseline/DAG/worktrees -> worker implementation and evidence
--> techlead independent verification/commit/integration -> Architect verdict and memory upkeep. Architect alone
+The normal implementation lifecycle is Architect epic -> techlead baseline/ticket plan -> Architect plan
+approval -> same techlead creates worktrees/registers tickets -> worker implementation and evidence
+-> techlead independent verification/commit/integration -> Architect verdict and memory upkeep. Reject
+whole-epic forwarding when independently verifiable outcomes exist; one lead may execute sequential
+tickets, and genuinely coupled interface/consumer changes stay together. Architect alone
 approves schema changes. Techlead proposes evidence-backed corrections to stale commands/templates;
 record the revision and update existing files rather than forking a template per ticket. A fresh
 worker round after 70 steps requires techlead to inspect progress and continue or redirect briefly,

@@ -18,8 +18,9 @@ pending. Logs may contain application secrets: they are private, not automatical
 
 ## Ticket specification
 
-Techlead writes an approved JSON spec outside the product worktree, then calls `add SPEC.json`.
-Required fields:
+After Architect approves the compact ticket plan, techlead creates the assigned worktree and writes
+an approved JSON spec outside the product worktree, then calls `add SPEC.json`. Registration validates
+execution metadata, not semantic decomposition or plan approval. Required fields:
 
     {
       "id": "T1",

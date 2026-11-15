@@ -100,6 +100,59 @@ test('bootstrap seed retains consent, all five schemas and core evidence fields'
   assert.match(seed, /not blindly resend the same request to reset its counter/);
 });
 
+test('techlead plans independently verifiable tickets before dispatching implementation', async () => {
+  const t = await agent('techlead');
+  const plan = t.body.indexOf('# Ticket plan');
+  const dispatch = t.body.indexOf('Start worker through subagent');
+  assert.ok(plan > 0, 'missing compact ticket-plan boundary');
+  assert.ok(plan < dispatch, 'plan must precede the first implementation dispatch');
+  const section = t.body.slice(plan, dispatch);
+  assert.match(section, /before (?:creating|any) (?:a )?worktree/i);
+  assert.match(section, /architect[\s\S]*approv/i);
+  assert.match(section, /every epic acceptance/i);
+  assert.match(section, /independently verifiable/i);
+  assert.match(section, /COUPLED/);
+  assert.match(section, /sequentially/i);
+  assert.match(section, /no separate plan file|short table or list/);
+  assert.match(section, /routine checkpoints need no new plan artifact/);
+  assert.doesNotMatch(t.body, /one techlead (?:child )?per (?:module|ticket)/i);
+  assert.doesNotMatch(t.body, /at least \w+ tickets/i);
+});
+
+test('architect reviews the ticket plan at a pre-dispatch boundary and rejects whole-epic forwarding', async () => {
+  const a = await agent('architect');
+  const workflow = a.body.indexOf('# Workflow');
+  const diff = a.body.indexOf('Inspect the resulting diff');
+  const plan = a.body.indexOf('ticket plan');
+  assert.ok(plan > workflow && plan < diff, 'plan gate must sit inside the workflow before diff review');
+  const gate = a.body.slice(workflow, diff);
+  assert.match(gate, /before (?:the first )?implementation|before worktrees/i);
+  assert.match(gate, /RETURN/);
+  assert.match(gate, /independently (?:acceptable|verifiable)/i);
+  assert.match(gate, /sequential|same child/);
+  assert.match(gate, /(?:one|single) ticket[^.]*whole|whole(?:-| )epic/i);
+});
+
+test('bootstrap seed makes the ticket plan an explicit gate before implementation and registration', async () => {
+  const seed = await read('workflow/bootstrap.md');
+  assert.match(seed, /ticket plan/i);
+  assert.match(seed, /plan[\s\S]{0,200}approv|approv[\s\S]{0,200}plan/i);
+  const lifecycle = seed.slice(seed.indexOf('The normal implementation lifecycle'));
+  assert.match(lifecycle, /plan/i);
+  assert.ok(lifecycle.indexOf('plan') < lifecycle.indexOf('worktree'), 'plan precedes worktree creation');
+  assert.match(lifecycle, /approval[\s\S]*registers tickets[\s\S]*worker implementation/);
+  const report = seed.slice(seed.indexOf('Techlead report:'), seed.indexOf('Verdict:'));
+  assert.match(report, /PLAN/);
+});
+
+test('documentation states planning is prompt-enforced and the helper does not judge decomposition', async () => {
+  const limits = await read('docs/limitations.md');
+  assert.match(limits, /prompt-enforced[\s\S]{0,300}plan|plan[\s\S]{0,300}prompt-enforced/i);
+  assert.match(limits, /semantic decomposition/i);
+  const runtime = await read('workflow/runtime.md');
+  assert.match(runtime, /plan[\s\S]{0,200}approv|approv[\s\S]{0,200}plan/i);
+});
+
 test('local Markdown links resolve within the package', async () => {
   for (const path of (await walk()).filter(f => f.endsWith('.md'))) {
     const text = await read(path);

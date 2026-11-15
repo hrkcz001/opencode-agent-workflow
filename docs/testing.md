@@ -10,7 +10,7 @@ Runtime tests use temporary Git repositories and real child commands to exercise
 
 The alarm tests cover absence of pre-checkpoint overhead, tool removal at and after 70 with role/session isolation, new-prompt reset isolation, storage reuse across plugin setup reload, and exact hook registration. Storage reuse is not proof of a real server restart.
 
-Static tests check JSON parsing, role frontmatter and ordered delegation permissions, architect shell/edit restrictions, techlead question denial and direct-edit envelope, worker backstop and Git restrictions, consistent portable bootstrap paths, required seed schema fields, local Markdown links and privacy patterns. They are regression guards, not a full YAML parser, complete OpenCode schema validator or security proof.
+Static tests check JSON parsing, role frontmatter and ordered delegation permissions, architect shell/edit restrictions, techlead question denial and direct-edit envelope, worker backstop and Git restrictions, consistent portable bootstrap paths, required seed schema fields, local Markdown links and privacy patterns. Ticket-plan tests check that both roles and bootstrap preserve the pre-dispatch return/approval boundary, acceptance/module coverage, coupled-work exception and sequential execution, and that documentation admits the semantic limit of registration. These are textual contract checks, not a semantic planner or model-obedience test. They are regression guards, not a full YAML parser, complete OpenCode schema validator or security proof.
 
 ## Compatibility inspection
 
