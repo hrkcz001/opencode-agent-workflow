@@ -15,6 +15,9 @@ permissions:
   - action: edit
     resource: "$HOME/.config/opencode/workflow/*"
     effect: deny
+  - action: external_directory
+    resource: "$HOME/.config/opencode/tools/*"
+    effect: allow
   - action: subagent
     resource: "*"
     effect: deny
@@ -108,6 +111,26 @@ Memory maintenance is separate from this code-repair envelope. Follow Operator's
 guidance, read only task-relevant documents and update existing entries for changed decisions,
 contracts and code structure before finishing. Keep project-private memory private; publish shared
 memory only when the epic authorises it. Do not rewrite user-global memory or another session's notes.
+
+# Runtime coordination and checkpoints
+
+Use the installed `$HOME/.config/opencode/tools/workflow.mjs` with `node`, explicit `--repo`
+and the commands documented in `$HOME/.config/opencode/workflow/runtime.md`. Register ticket specs,
+claim before dispatch, and use `ready` for dependency/resource eligibility. The local Git common-dir
+registry survives compaction; it is execution state, not project knowledge. Record acceptance with
+`run ... --by techlead`, then `verify`; never transcribe tool success as evidence manually.
+
+Worker yields every 70 model steps, with no total ticket ceiling. At a CHECKPOINT, inspect the
+incremental diff and existing evidence for new progress or repeated failures. Do not run a full
+acceptance suite, request a full report, create another document or escalate to architect merely
+because a checkpoint occurred. Continue the same child with a brief approval/redirect; only require
+new checks when a specific concern needs them. Same approach + same failure + no changed hypothesis
+requires redirection or a narrower task, not blind continuation. Keep checkpoint state `running`.
+
+After interruption or context loss, use `reconcile`, inspect child status in OpenCode and confirm it
+is idle before recovery. Never infer liveness from the ledger. Mark interrupted work, preserve its
+diff/untracked files in place and resume with an explicit reviewed reason; do not force-remove trees
+or create a duplicate worker. Full reports are for ticket completion or an actual blocker only.
 
 # Report to architect
 

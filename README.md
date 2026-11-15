@@ -1,6 +1,6 @@
 # OpenCode agent workflow
 
-A reusable OpenCode V2 workflow with three roles, project-owned contracts, isolated ticket worktrees, independent verification and a worker circuit breaker.
+A reusable OpenCode V2 workflow with three roles, project-owned contracts, isolated ticket worktrees, independent verification and a worker checkpoint boundary.
 
     Human -> architect -> techlead -> worker
                           review <- uncommitted changes
@@ -12,9 +12,10 @@ Author: Hermes Agent by Nous Research. Copyright: Andrej Morozov. [MIT license](
 
 - [Role prompts](agents): architect owns scope and architecture, techlead owns execution and delivery, worker implements one ticket.
 - [Bootstrap seed](workflow/bootstrap.md): consent-first initialization of project-specific contracts and five external templates.
-- [Worker alarm](extensions/worker-alarm/README.md): dependency-free V2 plugin; progressive warnings and tool removal at request 300.
+- [Worker alarm](extensions/worker-alarm/README.md): dependency-free V2 plugin; lightweight progress review every 70 model steps, without a total task ceiling.
 - [Configuration example](opencode.example.json) and optional [CLI preferences](cli.example.json).
 - [Optional integration fragment](examples/integrations.example.json) for Operator Memory and Context7. No third-party implementation is vendored.
+- [Local runtime](workflow/runtime.md): durable ticket state, evidence runner and dependency/resource eligibility.
 - Dependency-free tests. No installer, credentials, sessions, private memory or model calls are included.
 
 ## Start here

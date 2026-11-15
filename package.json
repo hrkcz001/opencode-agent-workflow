@@ -8,6 +8,6 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test extensions/worker-alarm/plugin.test.mjs tests/workflow.test.mjs"
+    "test": "node --test extensions/worker-alarm/plugin.test.mjs tests/*.test.mjs"
   }
 }

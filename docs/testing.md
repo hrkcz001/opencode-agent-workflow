@@ -6,15 +6,15 @@ From the repository root with Node.js 20 or newer:
 
     npm test
 
-No package installation, credentials, service connection or inference is needed. The suite includes five real worker-alarm callback tests and static workflow tests. The callback adapter registers and invokes the plugin's actual setup hooks; it is not an inference simulator.
+Runtime tests use temporary Git repositories and real child commands to exercise state transitions, stale evidence, scope/modes, reservations, interruption recovery and timeouts. Checkpoint tests exercise four successive rounds without a total ceiling. No package installation, credentials, service connection or inference is needed. The suite includes five real worker-alarm callback tests and static workflow tests. The callback adapter registers and invokes the plugin's actual setup hooks; it is not an inference simulator.
 
-The five alarm tests cover progressive warning thresholds and persistence between thresholds, tool removal at and after 300 with role/session isolation, new-prompt reset isolation, storage reuse across plugin setup reload, and exact hook registration. Storage reuse is not proof of a real server restart.
+The alarm tests cover absence of pre-checkpoint overhead, tool removal at and after 70 with role/session isolation, new-prompt reset isolation, storage reuse across plugin setup reload, and exact hook registration. Storage reuse is not proof of a real server restart.
 
 Static tests check JSON parsing, role frontmatter and ordered delegation permissions, architect shell/edit restrictions, techlead question denial and direct-edit envelope, worker backstop and Git restrictions, consistent portable bootstrap paths, required seed schema fields, local Markdown links and privacy patterns. They are regression guards, not a full YAML parser, complete OpenCode schema validator or security proof.
 
 ## Compatibility inspection
 
-The source setup was inspected with the real OpenCode v2.3.0 CLI without model calls. Loaded custom IDs were architect, techlead and worker, alongside title/summary/compaction helpers. Loaded prompt bodies and permission order were inspected; the worker had steps 300. The local.worker-alarm plugin was independently observed active through /api/plugin after plugin list reconciliation.
+The source setup was inspected with the real OpenCode v2.3.0 CLI without model calls. The original publication used a 300-step emergency cap; the current release replaces it with repeatable 70-step review rounds. Loaded custom IDs were architect, techlead and worker, alongside title/summary/compaction helpers. Loaded prompt bodies and permission order were inspected; the worker had steps 70. The local.worker-alarm plugin was independently observed active through /api/plugin after plugin list reconciliation.
 
 The exported configuration and agent frontmatter are additionally validated during publication against the installed server's OpenAPI Config.InfoEncoded and Config.AgentEncoded schemas. The CLI preferences retain the inspected live cli.json content. The hosted JSON-schema URLs rejected automated retrieval with HTTP 403; this is not presented as a hosted-schema validation pass. Publication checks do not install packages or expose credentials.
 

@@ -5,14 +5,14 @@
 - Prompt ownership rules, exact file allowlists and conditional integration authorization are not OS isolation. Static shell patterns deny selected forms, not every equivalent command. Do not grant this setup access to secrets or destructive production operations on the assumption it is sandboxed.
 - Custom Markdown bodies replace the provider base prompt; project instructions and plugins still contribute context. Review the complete resolved configuration.
 - The plugin counts worker primary context preparations, not tool calls, time or semantic progress. Native steps and context-hook counts are related but not identical. Failed preparations can count; retries that reuse a prepared request may not.
-- The circuit breaker removes future tool definitions; it does not kill running processes, cancel background jobs or guarantee an honest final report. A native step limit can stop a session before the plugin obtains a final reporting opportunity.
+- The checkpoint boundary removes future tool definitions; it does not kill running processes, cancel background jobs or guarantee an honest final report. A native step limit can stop a session before the plugin obtains a final reporting opportunity.
 - Persistence relies on ctx.storage supplied by the host. Without storage, counts are in-memory only. A new prompt resets only the addressed session's round. Architect and techlead have no small strict step quotas.
 - Model IDs are examples. No inference, project bootstrap, DAG integration or human product evaluation is proven by static/unit tests.
 - Optional Operator and Context7 packages have their own lifecycle, trust boundaries and licenses. This export does not bundle or install them.
 
-## Recover an exhausted worker
+## Worker checkpoints and interrupted work
 
-Preserve the child's sessionID, worktree path, base/head SHA, uncommitted diff and evidence. Inspect actual progress and any running background job before doing cleanup. Techlead reviews the partial result and independently checks what can be checked, then narrows or revises the ticket. Continue the same child with the approved revised request. Do not blindly resend to reset the counter, spawn duplicate work, or delete partial/unmerged output.
+Preserve the child's sessionID, worktree path, base/head SHA, uncommitted diff and evidence. Inspect actual progress and any running background job before doing cleanup. At normal checkpoints techlead briefly inspects existing progress and continues or redirects; no full report or extra check suite is required. For actual interruption, reconcile durable state and confirm the child is idle before resuming. Do not blindly resend to reset the counter, spawn duplicate work, or delete partial/unmerged output.
 
 ## Recover missing contracts
 

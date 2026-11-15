@@ -1,45 +1,37 @@
-# Worker alarm
+# Worker checkpoint
 
-Local OpenCode V2 Promise plugin, without package dependencies or extra model calls.
+Dependency-free OpenCode V2 Promise plugin, retaining the `local.worker-alarm` ID for compatibility.
 
-Policy:
-- Only the `worker` agent's primary `context` hook increments the counter.
-- Requests 100-179 ask it to check remaining acceptance and avoid expanding scope.
-- Requests 180-249 ask it to wind down and finish required verification.
-- Requests 250-299 ask it to finish the next safe action and report.
-- Request 300 and later remove all tool definitions and require a text-only partial/blocker report.
-- `worker.md` also sets native `steps: 300` as an independent native backstop.
-- A new prompt to that session resets the round. Techlead must review and revise/narrow the ticket
-  before continuing an exhausted child, rather than blindly resetting its allowance.
-- Counts persist through plugin reloads when the host supplies ctx.storage; the unit test models
-  storage reuse, not a real server restart.
-- Architect and techlead have no step cap from this plugin.
+Every 70 worker primary request preparations, tools are removed for that round so the worker yields
+to techlead. Native `steps: 70` is an independent boundary and may be reached before the plugin's
+message; worker.md therefore defines the same concise checkpoint protocol. There is NO total ticket
+step ceiling. Techlead can continue the same child through any number of reviewed rounds.
 
-A count is a primary request preparation, not a tool call, token count or elapsed-time budget.
-Compaction, title and auxiliary generate hooks are not registered and do not increment it.
-Failed primary preparations can count; provider retries that reuse an already prepared request do
-not necessarily count again. This is an emergency boundary, not a measured productivity target.
-Warnings remain in each outgoing request while their level is active; they are not appended to the
-stored conversation, so they do not accumulate a growing transcript.
+A checkpoint is CHECKPOINT plus at most three short bullets: progress, repeated failure, next action.
+Reuse existing evidence links. No full report, new file, special commit or extra acceptance run just
+for a checkpoint. Techlead inspects the incremental diff and evidence; continue if productive, redirect
+if the same approach repeats the same failure without a new hypothesis. Full reports are only for
+completion or an actual blocker. No warning messages are injected before the boundary.
 
-This does not kill running processes, cancel already launched background commands, detect semantic
-lack of progress or guarantee a final report. It prevents further tool exposure at the request
-boundary and uses native steps as a backstop. It is not an OS sandbox.
+Only worker context hooks count; title, compaction and auxiliary generation do not. A new prompt resets
+that session's round. Counts survive plugin reload when ctx.storage is supplied; tests model storage
+reuse, not a real restart. Failed preparations can count, retries reusing a preparation may not.
+These are model-step preparations, NOT tool-call counts, wall time or semantic progress measurements.
 
-Run tests from this repository root:
+The plugin does not launch techlead itself: the normal child-idle notification and parent prompt
+protocol drive review/continuation. It does not kill processes or cancel background tasks. The plugin
+is not an OS sandbox or a guarantee of model obedience. Architect/techlead have no step cap here.
 
-    node --test extensions/worker-alarm/plugin.test.mjs
+Run from repository root:
 
-Compatibility baseline: OpenCode v2.3.0. The unit suite contains five callback tests.
-Loaded-state inspection and test results are described in ../../docs/testing.md.
-No real model request was made for validation. Tests exercise the registered callbacks through a
-minimal host adapter; they do not simulate inference or prove model obedience to warnings.
+    node --test extensions/worker-alarm/plugin.test.mjs tests/checkpoint.test.mjs
 
-API references:
-https://github.com/anomalyco/opencode/blob/dev/packages/plugin/src/README.md
+Callback tests cover yield/reset, persistence, isolation and repeated rounds beyond 210 steps.
+No inference is used. See ../../docs/testing.md for verification boundaries.
+
+V2 loading requires the package directory with package.json exports, not a direct index.mjs path.
+Confirm active registration via `opencode api GET /api/plugin` after reload reconciliation.
+
+References:
 https://github.com/anomalyco/opencode/blob/dev/packages/plugin/src/promise/session.ts
 https://opencode.ai/docs/agents/
-
-The V2 loader expects a local package directory with package.json exports, not an index.mjs path.
-After reload, registry listing can briefly be empty while plugins reconcile; confirm active status
-through `opencode api GET /api/plugin`, not just the reload exit code.

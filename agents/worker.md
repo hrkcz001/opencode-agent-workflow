@@ -2,7 +2,7 @@
 description: Implements one ticket in its assigned worktree and file allowlist, runs acceptance checks and returns evidence.
 mode: subagent
 model: openrouter/deepseek/deepseek-v4.1-flash-1017
-steps: 300
+steps: 70
 permissions:
   - action: shell
     resource: "git push *"
@@ -67,6 +67,15 @@ Return missing product or architecture decisions to techlead instead of inventin
 6. Inspect git diff and git status, including untracked files. Remove only your incidental edits and
    temporary files; preserve required source/tests. Fix related defects only within the allowlist.
    Obey STOP CONDITION. Report non-passing outcomes instead of repeating attempts without new evidence.
+
+# Periodic checkpoint
+
+Every 70 model steps yields control for techlead review, not task failure. Return CHECKPOINT and
+at most three short bullets: progress, any repeated failure, next action. Reuse existing evidence
+links; no new document, full report or extra test run solely for this boundary. Preserve the partial
+diff. On explicit continuation of this same session, the dirty tree is expected: confirm the same
+workdir and reviewed HEAD/diff rather than applying the clean-new-ticket precondition again.
+There is no total ticket step ceiling. Full reporting below applies only at completion or a blocker.
 
 # Report to techlead
 

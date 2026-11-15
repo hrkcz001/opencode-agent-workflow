@@ -15,19 +15,12 @@ export default {
       const step = (Number.isSafeInteger(stored) && stored >= 0 ? stored : 0) + 1;
       counts.set(event.sessionID, step);
       if (ctx.storage) await ctx.storage.set(key(event.sessionID), step);
-      if (step >= 300) {
+      if (step >= 70) {
         event.tools = {};
-        event.system.push({ text: `WORKER CIRCUIT BREAKER: primary request ${step}/300. Tools are disabled. Return a text-only PARTIAL or BLOCKED report with completed work, workdir, remaining changes, evidence and the decision needed from techlead. Do not claim unrun checks passed.` });
+        event.system.push({ text: `WORKER CHECKPOINT: primary request ${step}/70. Tools are disabled. Yield to techlead for progress review. Return only CHECKPOINT plus at most three short bullets: progress since last review, any repeated failure, next action. Link existing evidence only; do not run extra checks or write a full report for this boundary. Preserve all required changes. This is a review boundary, not a total task limit; techlead may continue this session after inspecting progress. Do not claim unrun checks passed.` });
         return;
       }
-      const level = step >= 250 ? 3 : step >= 180 ? 2 : step >= 100 ? 1 : 0;
-      if (!level) return;
-      const instruction = level === 1
-        ? 'Check remaining acceptance criteria. Finish the current ticket; do not expand scope. Return PARTIAL or BLOCKED if there is no evidence-backed next action.'
-        : level === 2
-          ? 'Wind down now. Stop exploratory work and repeated failed approaches. Run only remaining required checks, preserve your changes and prepare the report.'
-          : 'Finish the next safe action and return your report. Do not start another repair cycle. Report remaining work and blockers to techlead before tools are disabled.';
-      event.system.push({ text: `WORKER ALARM LEVEL ${level}: primary request ${step}/300. ${instruction}` });
+
     });
   },
 };

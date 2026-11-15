@@ -98,6 +98,19 @@ labelled ready for checks that cannot run. Do not dispatch ordinary implementati
 accepted a usable contract. Architect asks the human only for unresolved intent, authority, budget or
 side-effect approval, not to write templates or run Git.
 
+## Local runtime helpers
+
+Record the installed helper path and approved invocation in project.md: `node` plus the absolute
+path to `$HOME/.config/opencode/tools/workflow.mjs`, using `--repo` for the project checkout.
+Read `$HOME/.config/opencode/workflow/runtime.md` for commands and ticket-spec fields. Keep runtime
+state and evidence in the Git common directory, outside shared contracts and commits. Define named
+exclusive resources and approved check argv/timeouts in ticket specs. Preparing worktrees and smoke
+commands remains project-specific; use existing scripts rather than adding a generic installer.
+
+A worker checkpoint is a brief review every 70 model steps, not a full report or a fixed total budget.
+Techlead reviews the diff/evidence and continues the same session; final schemas apply at completion
+or a real blocker. Do not add per-checkpoint paperwork to the project templates.
+
 ## Normal operation and updates
 
 Architect reads the project contract and epic/verdict templates; techlead reads the contract and ticket/techlead
@@ -111,5 +124,5 @@ The normal lifecycle is Architect epic -> techlead baseline/DAG/worktrees -> wor
 -> techlead independent verification/commit/integration -> Architect verdict and memory upkeep. Architect alone
 approves schema changes. Techlead proposes evidence-backed corrections to stale commands/templates;
 record the revision and update existing files rather than forking a template per ticket. A fresh
-worker round after the alarm trips requires techlead to review progress and narrow/revise the ticket,
-not blindly resend the same request to reset its counter.
+worker round after 70 steps requires techlead to inspect progress and continue or redirect briefly,
+not blindly resend the same request to reset its counter. No full report is required at checkpoints.

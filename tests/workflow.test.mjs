@@ -74,7 +74,7 @@ test('architect restrictions, techlead repair envelope and worker backstop remai
   assert.ok(rule(t, 'question', '*', 'deny'));
   assert.match(t.body, /at most 10 added\/deleted lines in one file, or 5 in each of two files/);
   assert.match(t.body, /no public signature, contract, schema, dependency, configuration or test meaning/);
-  assert.equal(w.fields.steps, '300');
+  assert.equal(w.fields.steps, '70');
   for (const cmd of ['push', 'commit', 'merge', 'rebase', 'worktree', 'branch'])
     assert.ok(rule(w, 'shell', `git ${cmd} *`, 'deny'));
 });

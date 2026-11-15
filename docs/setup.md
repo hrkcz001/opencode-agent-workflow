@@ -10,7 +10,7 @@ Authenticate providers using OpenCode's own supported flow. Never put API keys, 
 
 Back up only the existing files you will change to a private location. Merge deliberately; do not copy this repository over an entire live configuration directory.
 
-The prompt defaults assume the global configuration root is $HOME/.config/opencode. If your root differs, replace every occurrence of $HOME/.config/opencode/workflow in architect.md and techlead.md with your real absolute forward-slash path, including both body references and permission resources. $HOME in prompt prose is a convention to resolve before using a file tool, not a claim that every tool expands variables. Verify that loaded permission paths resolve correctly. Do not put machine-specific edits back into a public commit.
+The prompt defaults assume the global configuration root is $HOME/.config/opencode. If your root differs, replace every occurrence of $HOME/.config/opencode/workflow and $HOME/.config/opencode/tools in architect.md and techlead.md with your real absolute forward-slash path, including both body references and permission resources. $HOME in prompt prose is a convention to resolve before using a file tool, not a claim that every tool expands variables. Verify that loaded permission paths resolve correctly. Do not put machine-specific edits back into a public commit.
 
 Copy this exact allowlist into that configuration root:
 
@@ -18,6 +18,8 @@ Copy this exact allowlist into that configuration root:
 - agents/techlead.md
 - agents/worker.md
 - workflow/bootstrap.md
+- workflow/runtime.md
+- tools/workflow.mjs
 - extensions/worker-alarm/package.json
 - extensions/worker-alarm/index.mjs
 
@@ -61,6 +63,6 @@ After completing your local configuration edits:
     opencode api GET /api/plugin
     opencode models
 
-Do not share raw debug config output publicly without review. Confirm architect is default; only architect, techlead and worker are custom workflow roles; architect can spawn only techlead, techlead only worker, worker none; worker has steps 300. Compare the loaded prompt bodies with the installed files. Verify local.worker-alarm is active via API. Plugin lists can briefly be empty during reconciliation after reload, so do not interpret a single immediate empty listing as failure.
+Do not share raw debug config output publicly without review. Confirm architect is default; only architect, techlead and worker are custom workflow roles; architect can spawn only techlead, techlead only worker, worker none; worker has steps 70 per review round, with no total ticket ceiling. Compare the loaded prompt bodies with the installed files. Verify local.worker-alarm is active via API. Plugin lists can briefly be empty during reconciliation after reload, so do not interpret a single immediate empty listing as failure.
 
 Then enter a fresh project session and request a concrete outcome. Architect must ask before bootstrap. See the [pipeline](pipeline.md) for the consent and acceptance lifecycle. Configuration inspection does not demonstrate an end-to-end model run.
