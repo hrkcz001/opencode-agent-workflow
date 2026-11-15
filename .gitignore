@@ -1,0 +1,32 @@
+# Never publish credentials or live runtime state.
+.env
+.env.*
+!.env.example
+service.json
+auth.json
+*.pem
+*.key
+*.db
+*.db-*
+*.sqlite*
+# Local configuration and overrides.
+/opencode.json
+/cli.json
+*.local.*
+# Operator knowledge is private unless deliberately exported and reviewed.
+.operator/
+# Runtime, evidence and generated files.
+backups/
+logs/
+sessions/
+cache/
+state/
+evidence/
+node_modules/
+coverage/
+dist/
+build/
+*.log
+*.bak
+.DS_Store
+Thumbs.db

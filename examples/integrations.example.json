@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "@aerovato/operator-opencode-v2",
+    "./extensions/worker-alarm"
+  ],
+  "mcp": {
+    "servers": {
+      "context7": {
+        "type": "local",
+        "command": [
+          "context7-mcp"
+        ],
+        "timeout": {
+          "startup": 20000,
+          "catalog": 20000,
+          "execution": 120000
+        }
+      }
+    }
+  }
+}

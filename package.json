@@ -1,0 +1,13 @@
+{
+  "name": "opencode-agent-workflow",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test extensions/worker-alarm/plugin.test.mjs tests/workflow.test.mjs"
+  }
+}

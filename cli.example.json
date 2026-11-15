@@ -1,0 +1,34 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "vercel",
+    "mode": "dark"
+  },
+  "animations": true,
+  "session": {
+    "sidebar": "auto",
+    "scrollbar": false,
+    "submit_scroll": "bottom",
+    "thinking": "hide",
+    "markdown": "rendered",
+    "permissions": "autoaccept"
+  },
+  "tabs": {
+    "mode": "on"
+  },
+  "terminal": {
+    "title": true
+  },
+  "keybinds": {
+    "agent.cycle": "tab",
+    "variant.cycle": "ctrl+t",
+    "session.tab.next": "ctrl+tab,alt+down",
+    "session.tab.previous": "ctrl+shift+tab,alt+up",
+    "session.tab.history.back": "alt+left",
+    "session.tab.history.forward": "alt+right",
+    "composer.subagent.select": "ctrl+s",
+    "composer.subagent.up": "alt+[",
+    "composer.subagent.down": "alt+]",
+    "composer.subagent.interrupt": "ctrl+x"
+  }
+}
